@@ -1,0 +1,15 @@
+{
+    "python.pythonPath": "env\\Scripts\\python.exe",
+    "files.associations": {
+        "*.j2.html": "jinja-html"
+    },
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/__pycache__": true,
+        "**/.DS_Store": true,
+        ".gitignore": true
+    }
+}

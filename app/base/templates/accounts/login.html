@@ -1,0 +1,76 @@
+{% extends 'layouts/base-fullscreen.html' %}
+
+{% block title %} Login {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="login-logo">
+    <a href="{{ url_for('home_blueprint.index') }}">
+        <img src="{{ url_for('static', filename='favicon.ico') }}" height="64" class='mb-4'>
+    </a>
+</div>
+
+<div class="card">
+    <div class="card-body">
+
+        <div class="text-center mb-5">
+            <h3>Masuk</h3>
+            <span class="mb-0 text-muted text-center">
+                {% if msg %}
+                {{ msg | safe }}
+                {% else %}
+                Akun default: test / pass
+                {% endif %}
+            </span>
+        </div>
+
+        <form role="form" method="post" action="">
+            {{ form.hidden_tag() }}
+            <div class="input-group mb-3">
+                {{ form.username(placeholder="Username", class="form-control") }}
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <i data-feather="user"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                {{ form.password(placeholder="Password", class="form-control", type="password") }}
+
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <i data-feather="key"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" checked>
+                            Ingat saya
+                        </label>
+                    </div>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                    <button type="submit" name="login" class="btn btn-primary btn-block">Masuk</button>
+                </div>
+                <!-- /.col -->
+            </div>
+            <br />
+            <div class="float-right">
+                <a href="{{ url_for('base_blueprint.register') }}">Belum punya akun?</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}{% endblock javascripts %}

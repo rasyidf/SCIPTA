@@ -1,0 +1,62 @@
+{% macro nav_link(endpoint, text, icon, notify) %}
+{%- if request.endpoint is not none -%}
+{%- if request.endpoint.endswith(endpoint) -%}
+{% set isactive = 'active' %}
+{%- else -%}
+{% set isactive = '' %}
+{%- endif -%}
+{% set isenable = '' %}
+{%- else -%}
+{% set isenable = 'disable' %}
+{%- endif -%}
+
+<li class="nav-item ">
+  <a href="{{ url_for(endpoint) }}" class="nav-link {{isactive}} {{isenable}}">
+    <i class="nav-icon" data-feather="{{icon}}" width="20" height="20"></i>
+    <p>
+      <span class="align-middle">{{ text | title }}</span>
+      {% if notify %}
+      <span class="right badge badge-danger">*</span>
+      {% endif %}
+    </p>
+  </a>
+</li>
+
+{% endmacro %}
+
+{% macro nav_header(text) %}
+<li class="nav-header">{{text}}</li>
+{% endmacro %}
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-2">
+
+  <a href="{{ url_for('home_blueprint.index') }}" class="brand-link">
+    <img class="brand-image " src="{{ url_for('static', filename='favicon.ico') }}" class='mb-4'>
+    <span class="brand-text font-weight-light">SIPTA</span>
+  </a>
+
+  <div class="sidebar">
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+        {{ nav_link('home_blueprint.index','Beranda', 'home') }}
+        {{ nav_link('home_blueprint.help','Bantuan', 'help-circle') }}
+
+        {{ nav_header('Administration')}}
+
+        {{ nav_link('admin_blueprint.inputs','Inputs', 'layout') }}
+        {{ nav_link('admin_blueprint.outputs','Outputs', 'grid') }}
+        {{ nav_link('admin_blueprint.data','Data', 'layers') }}
+        {{ nav_link('admin_blueprint.manage','Manage', 'file-plus') }}
+
+        {{ nav_header('Training')}}
+
+        {{ nav_link('admin_blueprint.trainer','Trainer', 'layers', True) }}
+        {{ nav_link('admin_blueprint.logger','Log', 'layers') }}
+        {{ nav_link('admin_blueprint.reporter','Report', 'layers') }}
+
+      </ul>
+    </nav>
+  </div>
+</aside>

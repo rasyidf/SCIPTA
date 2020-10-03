@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    SIPTA - {% block title %} {% endblock %}
+  </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='/assets/css/adminlte.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='/assets/css/datatables.min.css') }}">
+
+  <script src="https://unpkg.com/feather-icons"></script>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  {% block stylesheets %}{% endblock stylesheets %}
+
+</head>
+
+<body class="hold-transition sidebar-mini layout-footer-fixed layout-sidebar-fixed ">
+  <div class="wrapper" id="app">
+
+    {% include "includes/navigation.html" %}
+
+    {% include "includes/sidenav.html" %}
+
+    <div class="content-wrapper">
+
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-1">
+            <div class="col-sm-6">
+              <h4>{% block contentheader %} {% endblock %}</h4>
+            </div>
+            <div class="col-sm-6">
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="content">
+        <div class="container-fluid"> 
+          {% block content %}{% endblock content %} 
+        </div>
+
+      </section>
+    </div>
+    {% include 'includes/footer.html' %}
+  </div>
+
+  {% include "includes/scripts.html" %}
+
+  {% block javascripts %}{% endblock javascripts %}
+</body>
+
+</html>

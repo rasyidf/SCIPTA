@@ -1,0 +1,102 @@
+{% extends 'layouts/base.html' %}
+
+
+{% block title %} Dashboard {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- Hoverable rows start -->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Data</h4>
+        <div class="card-tools" id="table-tools">
+
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <div v-if="isActive" class="overlay">
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+              <span class="sr-only">Loading...</span>
+            </div>
+          </div>
+        </div>
+          <p>Add <code class="highlighter-rouge">.table-hover</code> to enable a hover state on table rows
+            within a
+            <code class="highlighter-rouge">&lt;tbody&gt;</code>.
+          </p>
+          <div class="table-responsive dt-bootstrap4">
+            <table class="table table-bordered table-hover mb-0" id="table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Text</th>
+                  <th>Description</th>
+                  <th>Data</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(result, index) in results">
+                  <td class="text-bold-500">[[result.id ]] </td>
+                  <td>[[ result.text ]]</td>
+                  <td>[[ result.desc ]]</td>
+                  <td>[[ result.data ]]</td>
+                  <td><a href="#"><i class="font-medium-1"
+                        data-feather="mail"></i></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div> 
+  
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script>
+  // const url = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR";
+  const url = "{{ url_for('api_blueprint.data_api', _external=True) }}";
+
+  const vm = new Vue({
+    el: '#app', 
+    delimiters: ['[[', ']]'],
+    data: {
+      results: [],
+      isLoading:true
+    },
+    mounted() {
+      axios.get(url).then(response => {
+        this.results = response.data
+      }).then(()=> isLoading = false);
+    }
+  });
+</script>
+<script>
+
+  $(function () { 
+      $('#table').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
+    });
+        
+  </script>
+{% endblock javascripts %}
