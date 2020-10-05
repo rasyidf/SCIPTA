@@ -33,8 +33,10 @@ def configure_database(app):
 def create_app(config):
     app = Flask(__name__, static_folder='base/static')
     app.config.from_object(config)
+    
     with app.app_context():
         register_extensions(app)
         register_blueprints(app)
         configure_database(app)
+        
     return app

@@ -1,4 +1,4 @@
-{% extends 'layouts/base-fullscreen.html' %}
+{% extends 'layouts/layout-base-full.html' %}
 
 {% block title %} Login {% endblock title %}
 
@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<div class="login-logo">
+<div class="auth-logo">
     <a href="{{ url_for('home_blueprint.index') }}">
         <img src="{{ url_for('static', filename='favicon.ico') }}" height="64" class='mb-4'>
     </a>

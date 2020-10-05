@@ -1,4 +1,4 @@
-{% extends 'layouts/base-fullscreen.html' %}
+{% extends 'layouts/layout-base-full.html' %}
 
 {% block title %} Error 403 {% endblock title %}
  
@@ -10,7 +10,7 @@
   <div class="container text-center pt-32">
       <h1 class='error-title'>403</h1>
       <p>Kamu nggak boleh di sini </p>
-      <a href="index.html" class='btn btn-primary'>Kembali</a>
+      <a href="{{url_for('base_blueprint.login')}}" class='btn btn-primary'>Login</a>
   </div>
   
 </div>

@@ -11,132 +11,47 @@ from jinja2 import TemplateNotFound
 
 from .models import Data, DataEncoder
 
-inventory = {
-    "1": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
+error = {
+    "itemNotFound": {
+        "errorCode": "itemNotFound",
+        "errorMessage": "Item not found"
     },
-    "2": {
-        "desc": "Red and juicy",
-        "qty": 500
-    },
-    "3": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "4": {
-        "desc": "Red and juicy",
-        "qty": 500
-    },
-    "5": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "6": {
-        "desc": "Red and juicy",
-        "qty": 500
-    },
-    "7": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "8": {
-        "desc": "Red and juicy",
-        "qty": 500
-    },
-    "9": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "10": {
-        "desc": "Red and juicy",
-        "qty": 500
-    },
-    "11": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "12": {
-        "desc": "Red and juicy",
-        "qty": 500
-    },
-    "13": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "14": {
-        "desc": "Red and juicy",
-        "qty": 500
-    }, "15": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "16": {
-        "desc": "Red and juicy",
-        "qty": 500
-    }, "17": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "18": {
-        "desc": "Red and juicy",
-        "qty": 500
-    }, "19": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "20": {
-        "desc": "Red and juicy",
-        "qty": 500
-    }, "21": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "22": {
-        "desc": "Red and juicy",
-        "qty": 500
-    }, "23": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "24": {
-        "desc": "Red and juicy",
-        "qty": 500
-    }, "25": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "26": {
-        "desc": "Red and juicy",
-        "qty": 500
-    }, "27": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "28": {
-        "desc": "Red and juicy",
-        "qty": 500
-    }, "29": {
-        "desc": "Crunchy and delicious",
-        "qty": 30
-    },
-    "30": {
-        "desc": "Red and juicy",
-        "qty": 500
+    "itemAlreadyExists": {
+        "errorCode": "itemAlreadyExists",
+        "errorMessage": "Could not create item. Item already exists"
     }
 }
 
 
 class DataApi(MethodView):
     """
-    /api/inventory
+    /api/data
     """
 
     def get(self):
         """ Return the entire inventory collection """
         inventory = Data.query.all()
-        apps.json_encoder = DataEncoder 
+        apps.json_encoder = DataEncoder
         return make_response(jsonify(inventory), 200)
+
+    def post(self):
+        """ Create an item """
+
+        apps.json_encoder = DataEncoder
+        body = request.get_json()
+
+        test = Data.query.filter(
+            Data.text == body.get('text', 'Untitled')).first()
+
+        if test is None:
+            data = Data(text=body.get('text', 'Untitled'), description=body.get(
+                'description', ''), data=body.get('data', ''))
+            db.session.add(data)
+        else:
+            make_response(jsonify(error["itemAlreadyExists"]), 400)
+
+        db.session.commit()
+        return make_response(jsonify(data))
 
     def delete(self):
         """ Delete the entire inventory collection """
@@ -147,66 +62,41 @@ class DataApi(MethodView):
 class DataItemApi(MethodView):
     """ /api/inventory/<item_name> """
 
-    error = {
-        "itemNotFound": {
-            "errorCode": "itemNotFound",
-            "errorMessage": "Item not found"
-        },
-        "itemAlreadyExists": {
-            "errorCode": "itemAlreadyExists",
-            "errorMessage": "Could not create item. Item already exists"
-        }
-    }
-
     def get(self, item_name):
         """ Get an item """
-        
-        apps.json_encoder = DataEncoder 
-        data = Data.query.filter(Data.id == int(item_name)).first()
-        if data is None:
-            return make_response(jsonify(self.error["itemNotFound"]), 400)
-        
-        return make_response(jsonify(data), 200)
 
-    def post(self, item_name):
-        """ Create an item """
-        if data.get(item_name, None):
-            return make_response(jsonify(self.error["itemAlreadyExists"]), 400)
-        body = request.get_json()
-        
+        apps.json_encoder = DataEncoder
         data = Data.query.filter(Data.id == int(item_name)).first()
         if data is None:
-            Data.query.create()
-        data[item_name] = {"description": body.get( "description", None), "qty": body.get("qty", None)}
-        
-        return make_response(jsonify(data[item_name]))
+            return make_response(jsonify(error["itemNotFound"]), 400)
+
+        return make_response(jsonify(data), 200)
 
     def put(self, item_name):
         """ Update/replace an item """
         body = request.get_json()
-        inventory[item_name] = {"description": body.get(
-            "description", None), "qty": body.get("qty", None)}
-        
-        return make_response(jsonify(inventory[item_name]))
 
-    def patch(self, item_name):
-        """ Update/modify an item """
-        if not inventory.get(item_name, None):
-            return make_response(jsonify(self.error["itemNotFound"]), 400)
-        body = request.get_json()
-        inventory[item_name].update({"description": body.get(
-            "description", None), "qty": body.get("qty", None)})
-        
-        return make_response(jsonify(inventory[item_name]), 2)
+        q = Data.query.filter(Data.id == int(item_name)).first()
+
+        q.text = body.get("text", '')
+        q.desc = body.get("desc", '')
+        q.data = body.get("data", '')
+
+        db.session.commit()
+
+        return make_response(jsonify(q))
 
     def delete(self, item_name):
         """ Delete an item """
+
+        data = Data.query.filter(Data.id == int(item_name)).first()
         
-        inventory = Data.query.filter(Data.id == int(item_name)).first()
-        if inventory is None:
-            return make_response(jsonify(self.error["itemNotFound"]), 400)
-        db.session.delete(inventory)
+        if data is None:
+            return make_response(jsonify(error["itemNotFound"]), 400)
+        
+        db.session.delete(data)
         db.session.commit()
+        
         return make_response(jsonify({}), 200)
 
 

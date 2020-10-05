@@ -20,7 +20,6 @@ def outputs():
 @blueprint.route('/manage/data')
 @login_required
 def data():
-
     return render_template('data.html', segment='index')
 
 @blueprint.route('/manage')

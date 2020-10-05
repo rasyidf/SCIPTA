@@ -26,8 +26,8 @@ class ProductionConfig(Config):
         config( 'DB_USERNAME' , default='sipta'     ),
         config( 'DB_PASS'     , default='pass'      ),
         config( 'DB_HOST'     , default='localhost' ),
-        config( 'DB_PORT'     , default=27017       ),
-        config( 'DB_NAME'     , default='sipta-db'  )
+        config( 'DB_NAME'     , default='sipta-db'  ),
+        config( 'DB_PORT'     , default= 27017      )
     )
 
 class DebugConfig(Config):

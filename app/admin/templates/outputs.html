@@ -1,8 +1,9 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/layout-base.html' %}
 
 
-{% block title %} Dashboard {% endblock title %}
- 
+{% block title %} Outputs {% endblock title %}
+{% block contentheader %}Outputs{% endblock %}
+
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
@@ -92,9 +93,6 @@
 
 <!-- Specific JS goes HERE --> 
 {% block javascripts %}
-
-<script src="/static/assets/js/pages/dashboard.js"></script>
-  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
-  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+ 
 
 {% endblock javascripts %}

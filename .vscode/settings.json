@@ -10,6 +10,7 @@
         "**/CVS": true,
         "**/__pycache__": true,
         "**/.DS_Store": true,
+        "**/env": true,
         ".gitignore": true
     }
 }

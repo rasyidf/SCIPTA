@@ -1,9 +1,13 @@
-{% extends 'layouts/base.html' %}
+{% extends 'layouts/layout-base.html' %}
 
 
-{% block title %} Dashboard {% endblock title %}
+{% block title %} Data {% endblock title %}
+{% block contentheader %}Data{% endblock %}
 
 {% block stylesheets %}{% endblock stylesheets %}
+{% block tools %}
+<a class="btn btn-primary " href="" role="button">Tambah</a>
+{% endblock tools %}
 
 {% block content %}
 
@@ -11,26 +15,9 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-      <div class="card-header">
-        <h4 class="card-title">Data</h4>
-        <div class="card-tools" id="table-tools">
-
-        </div>
-      </div>
       <div class="card-content">
         <div class="card-body">
-          <div v-if="isActive" class="overlay">
-          <div class="d-flex justify-content-center">
-            <div class="spinner-border" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
-          </div>
-        </div>
-          <p>Add <code class="highlighter-rouge">.table-hover</code> to enable a hover state on table rows
-            within a
-            <code class="highlighter-rouge">&lt;tbody&gt;</code>.
-          </p>
-          <div class="table-responsive dt-bootstrap4">
+          <div class="table-responsive table-sm">
             <table class="table table-bordered table-hover mb-0" id="table">
               <thead>
                 <tr>
@@ -47,15 +34,21 @@
                   <td>[[ result.text ]]</td>
                   <td>[[ result.desc ]]</td>
                   <td>[[ result.data ]]</td>
-                  <td><a href="#"><i class="font-medium-1"
-                        data-feather="mail"></i></a></td>
+                  <td>
+                    <button type="button" name="bEdit" id="bEdit" class="btn btn-tool btn-lg">
+                      <i data-feather="edit-1"></i>Edit
+                    </button>
+                    <button type="button" name="bEdit" id="bEdit" class="btn btn-tool btn-lg ">
+                      <i data-feather="trash"></i>Delete
+                    </button>
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-        </div> 
-  
+        </div>
+
       </div>
     </div>
   </div>
@@ -71,32 +64,24 @@
   const url = "{{ url_for('api_blueprint.data_api', _external=True) }}";
 
   const vm = new Vue({
-    el: '#app', 
+    el: '#app',
     delimiters: ['[[', ']]'],
     data: {
       results: [],
-      isLoading:true
+      isLoading: true
     },
-    mounted() {
-      axios.get(url).then(response => {
-        this.results = response.data
-      }).then(()=> isLoading = false);
+    created: function () {},
+    async mounted() {
+
+      const {
+        data
+      } = await axios.get(url)
+
+      this.results = [...data];
+
     }
   });
 </script>
-<script>
+<script src="{{ url_for('static',  filename='assets/js/table.js')}}"></script>
 
-  $(function () { 
-      $('#table').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-        
-  </script>
 {% endblock javascripts %}
