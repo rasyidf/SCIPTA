@@ -1,0 +1,163 @@
+{% extends 'layouts/layout-base.html' %}
+
+
+{% block title %} Data {% endblock title %}
+{% block contentheader %}Data{% endblock %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+{% block tools %}
+<a class="btn btn-primary " href="{{ url_for('admin_blueprint.data_create') }}" role="button">Tambah</a>
+{% endblock tools %}
+
+{% block content %}
+
+<!-- Hoverable rows start -->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <p v-if="loading">Loading...</p>
+          <div v-else class="table-responsive table-sm">
+            <table class="table table-bordered table-hover mb-0" id="table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Text</th>
+                  <th>Description</th>
+                  <th>Data</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(result, index) in results" :key="index">
+                  <td class="text-bold-500">[[ result.id ]] </td>
+                  <td>[[ result.text ]]</td>
+                  <td>[[ result.desc ]]</td>
+                  <td>[[ result.data ]]</td>
+                  <td>
+                    <button type="button" name="bEdit" id="bEdit" @click="edit_data($event)" :value="result.id"
+                      class="btn btn-outline-primary btn-xs">
+                      <i data-feather="edit-1"></i>Edit
+                    </button>
+                    <button type="button" name="bEdit" id="bEdit" @click="delete_data($event)" :value="result.id"
+                      class="btn btn-outline-primary btn-xs">
+                      <i data-feather="trash"></i>Delete
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p v-if="error">{{ error }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div v-if="loading" class="modal" id="loadingModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-dialog-centered d-flex justify-content-center " role="document">
+      <div class="card ">
+        <div class="card-body">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script>
+
+
+</script>
+
+<script src="{{ url_for('static',  filename='assets/js/table.js')}}"></script>
+
+<script>
+  async function SetTable() {
+    // await new Promise(r => setTimeout(r, 1));
+
+    tb = $('#table').DataTable({
+      "paging": true,
+      "searching": true,
+      "ordering": true,
+      "retrieve": true,
+      "autoWidth": false,
+      "responsive": true,
+      "oLanguage": {
+        "sEmptyTable": "Tidak ada data yang tersedia pada tabel ini",
+        "sProcessing": "Sedang memproses...",
+        "sLengthMenu": "Tampilkan _MENU_ entri",
+        "sZeroRecords": "Tidak ditemukan data yang sesuai",
+        "sInfo": "Menampilkan _START_ sampai _END_ dari _TOTAL_ entri",
+        "sInfoEmpty": "Menampilkan 0 sampai 0 dari 0 entri",
+        "sInfoFiltered": "(disaring dari _MAX_ entri keseluruhan)",
+        "sInfoPostFix": "",
+        "sSearch": "Cari:",
+        "sUrl": "",
+        "oPaginate": {
+          "sFirst": "Pertama",
+          "sPrevious": "Sebelumnya",
+          "sNext": "Selanjutnya",
+          "sLast": "Terakhir"
+        }
+      }
+    });
+    tb.draw();
+
+  }
+  // const url = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR";
+  const url = "{{ url_for('api_blueprint.data_api', _external=True) }}";
+
+  const vm = new Vue({
+    el: '#app',
+    delimiters: ['[[', ']]'],
+    data: {
+      loading: false,
+      results: [],
+      error: ""
+    },
+    created: function () {
+      this.load_data();
+    },
+    mounted: function () {
+      SetTable();
+
+    },
+    methods: {
+      load_data: function () {
+        this.loading = true;
+        axios
+          .get(url)
+          .then(res => {
+            this.loading = false;
+            this.results = res.data;
+          });
+      },
+      edit_data: function (e) {
+        const id = e.target.value;
+        const url = "{{ url_for('admin_blueprint.data') }}/edit/" + id;
+        window.location.href = url;
+      },
+      delete_data: function (e) {
+        const id = e.target.value;
+        axios.delete(url + '/' + id);
+        this.load_data();
+
+        window.location.href = "{{ url_for('admin_blueprint.data') }}";
+      }
+    }
+  });
+</script>
+
+{% endblock javascripts %}

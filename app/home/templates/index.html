@@ -12,7 +12,7 @@
 <section class="section">
     <div class="row mb-2">
         <div class="col-12 col-md-6">
-            <div class="card">
+            <div class="card" style="min-height: 150px;">
                 <div class="card-header border-0 p-2">
                     <h3 class="card-title">Model</h3>
                     <div class="card-tools">
@@ -38,61 +38,67 @@
             </div>
         </div>
         <div class="col-12 col-md-2">
-            <div class="card">
-                <div class="card-header border-0 p-2">
-                    <h3 class="card-title">Input</h3> 
-                </div>
-                <div class="card-body text-center">
-                    <div class="row">
-                        <div class="col">
-                            <h2>100</h2>
+            <a class="text-dark" href="{{ url_for('admin_blueprint.inputs') }}">
+                <div class="card" style="min-height: 150px;">
+                    <div class="card-header border-0 p-2">
+                        <h3 class="card-title">Input</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row">
+                            <div class="col">
+                                <h2>100</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span>Items</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <span>Items</span>
-                        </div>
-                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-12 col-md-2">
-            <div class="card">
-                <div class="card-header border-0 p-2">
-                    <h3 class="card-title">Output</h3> 
-                </div>
-                <div class="card-body text-center">
-                    <div class="row">
-                        <div class="col">
-                            <h2>100</h2>
+            <a class="text-dark"  href="{{ url_for('admin_blueprint.outputs') }}">
+                <div class="card" style="min-height: 150px;"> 
+                    <div class="card-header border-0 p-2">
+                        <h3 class="card-title">Output</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row">
+                            <div class="col">
+                                <h2>100</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span>Items</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <span>Items</span>
-                        </div>
-                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-12 col-md-2">
-            <div class="card">
-                <div class="card-header border-0 p-2">
-                    <h3 class="card-title">Data</h3> 
-                </div>
-                <div class="card-body text-center">
-                    <div class="row">
-                        <div class="col">
-                            <h2>100</h2>
+            <a class="text-dark"  href="{{ url_for('admin_blueprint.data') }}">
+                <div class="card" style="min-height: 150px;">
+                    <div class="card-header border-0 p-2">
+                        <h3 class="card-title">Data</h3>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row">
+                            <div class="col">
+                                <h2>100</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span>Items</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            <span>Items</span>
-                        </div>
-                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
     <div class="row mb-4">
@@ -105,26 +111,32 @@
                     <div class="row">
                         <div class="col">
                             <h3>Tentang Algoritma</h3>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam optio ullam, ea iure maiores corporis, velit maxime totam sequi neque nemo sed provident odit quaerat doloribus adipisci, aliquam recusandae praesentium!</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam optio ullam, ea iure maiores corporis, velit maxime totam sequi neque nemo sed provident odit quaerat doloribus adipisci, aliquam recusandae praesentium!</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam optio ullam, ea iure maiores corporis, velit maxime totam sequi neque nemo sed provident odit quaerat doloribus adipisci, aliquam recusandae praesentium!</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam optio ullam, ea iure
+                                maiores corporis, velit maxime totam sequi neque nemo sed provident odit quaerat
+                                doloribus adipisci, aliquam recusandae praesentium!</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam optio ullam, ea iure
+                                maiores corporis, velit maxime totam sequi neque nemo sed provident odit quaerat
+                                doloribus adipisci, aliquam recusandae praesentium!</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam optio ullam, ea iure
+                                maiores corporis, velit maxime totam sequi neque nemo sed provident odit quaerat
+                                doloribus adipisci, aliquam recusandae praesentium!</p>
                             <a name="bInfo" id="bInfo" class="btn btn-info" href="/help" role="button">More</a>
-                        </div> 
+                        </div>
                     </div>
                 </div>
             </div>
-     
+
         </div>
         <div class="col-md-4">
             <div class="card ">
                 <div class="card-header">
                     <h3 class="card-title">System</h3>
                 </div>
-                <div class="card-body" style="position: relative;"> 
+                <div class="card-body" style="position: relative;">
                     <div class="text-center ">
                         <h6>From last month</h6>
                         <h1 class="text-green">+$2,134</h1>
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div class="card widget-todo">
@@ -138,41 +150,41 @@
                     <table class="table table-borderless">
                         <tbody>
                             <tr>
-                                <td > 
+                                <td>
                                     <i class="text-warning" data-feather="alert-triangle"></i>
                                 </td>
-                                <td >UI Design</td>
+                                <td>UI Design</td>
                                 <td class="text-center">12/12/2020</td>
                             </tr>
-                            <tr> 
-                                <td > 
+                            <tr>
+                                <td>
                                     <i class="text-info" data-feather="info"></i>
                                 </td>
-                                <td >UI Design</td>
+                                <td>UI Design</td>
                                 <td class="text-center">12/12/2020</td>
                             </tr>
                             <tr>
-                              
-                                <td > 
+
+                                <td>
                                     <i class="text-warning" data-feather="alert-triangle"></i>
                                 </td>
-                                <td >UI Design</td>
+                                <td>UI Design</td>
                                 <td class="text-center">12/12/2020</td>
                             </tr>
                             <tr>
-                             
-                                <td > 
+
+                                <td>
                                     <i class="text-warning" data-feather="alert-triangle"></i>
                                 </td>
-                                <td >UI Design</td>
+                                <td>UI Design</td>
                                 <td class="text-center">12/12/2020</td>
                             </tr>
                             <tr>
-                               
-                                <td > 
+
+                                <td>
                                     <i class="text-warning" data-feather="alert-triangle"></i>
                                 </td>
-                                <td >UI Design</td>
+                                <td>UI Design</td>
                                 <td class="text-center">12/12/2020</td>
                             </tr>
                         </tbody>
@@ -187,6 +199,6 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
- 
+
 
 {% endblock javascripts %}

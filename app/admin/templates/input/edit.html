@@ -1,0 +1,99 @@
+{% extends 'layouts/layout-base.html' %}
+
+
+{% block title %} Edit Input Variable {% endblock title %}
+{% block contentheader %}Edit Input Variable{% endblock %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- Hoverable rows start -->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="idText">ID</label>
+            <input type="number" class="form-control" name="idText" id="idText" v-model="id"
+              placeholder="Identifier (auto)">
+          </div>
+          <div class="form-group">
+            <label for="TitleText">Title</label>
+            <input type="text" class="form-control" name="TitleText" id="TitleText" v-model="text" placeholder="Text">
+          </div>
+          <div class="form-group">
+            <label for="DescText">Description</label>
+            <input type="text" class="form-control" name="DescText" id="DescText" v-model="desc"
+              placeholder="Description">
+          </div>
+          <div class="form-group">
+            <label for="DataText">Data</label>
+            <input type="text" class="form-control" name="DataText" id="DataText" v-model="data" placeholder="Data">
+          </div>
+
+          <a class="btn btn-primary text-light" @click="submit" role="button">Ubah</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script>
+  const id = window.location.pathname.split("/").pop();
+  console.log('id : ' + id);
+  const url = "{{ url_for('api_blueprint.input_api', _external=True) }}/" + id;
+
+  const vm = new Vue({
+    el: '#app',
+    delimiters: ['[[', ']]'],
+    created: function () {
+      axios
+        .get(url)
+        .then(res => {
+          this.loading = false;
+          this.results = res.data;
+          console.log(this.results);
+          this.id = this.results.id;
+          this.desc = this.results.desc;
+          this.data = this.results.data;
+          this.text = this.results.text;
+        });
+
+    },
+    data: {
+      results: [],
+      id: '',
+      desc: '',
+      data: '',
+      text: ''
+    },
+    computed: {
+      idValid: function () {
+        return id != 0;
+      }
+    },
+    methods: {
+      submit: function () {
+
+        data = {
+          "data": this.data,
+          "desc": this.desc,
+          "text": this.text
+        };
+        axios.put(url, data)
+        window.location.href = "{{url_for('admin_blueprint.inputs')}}";
+      }
+    }
+
+  });
+</script>
+
+{% endblock javascripts %}

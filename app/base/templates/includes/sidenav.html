@@ -2,8 +2,10 @@
 {%- if request.endpoint is not none -%}
 {%- if request.endpoint.endswith(endpoint) -%}
 {% set isactive = 'active' %}
+{% set url_end = '#' %}
 {%- else -%}
 {% set isactive = '' %}
+{% set url_end = url_for(endpoint) %}
 {%- endif -%}
 {% set isenable = '' %}
 {%- else -%}
@@ -11,7 +13,7 @@
 {%- endif -%}
 
 <li class="nav-item ">
-  <a href="{{ url_for(endpoint) }}" class="nav-link {{isactive}} {{isenable}}">
+  <a href="{{ url_end }}" class="nav-link {{isactive}} {{isenable}}">
     <i class="nav-icon" data-feather="{{icon}}" width="20" height="20"></i>
     <p>
       <span class="align-middle">{{ text | title }}</span>
