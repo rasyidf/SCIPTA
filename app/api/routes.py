@@ -34,9 +34,9 @@ class OutputApi(MethodView):
 
     def get(self):
         """ Return the entire inventory collection """
-        inventory = Output.query.all()
+        outputs = Output.query.all()
         apps.json_encoder = OutputEncoder
-        return make_response(jsonify(inventory), 200)
+        return make_response(jsonify(outputs), 200)
 
     def post(self):
         """ Create an item """

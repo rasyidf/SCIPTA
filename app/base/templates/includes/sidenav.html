@@ -18,7 +18,7 @@
     <p>
       <span class="align-middle">{{ text | title }}</span>
       {% if notify %}
-      <span class="right badge badge-danger">*</span>
+      <span class="right badge badge-danger">1</span>
       {% endif %}
     </p>
   </a>
@@ -42,20 +42,20 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-        {{ nav_link('home_blueprint.index','Beranda', 'home') }}
-        {{ nav_link('home_blueprint.help','Bantuan', 'help-circle') }}
+        {{ nav_link('home_blueprint.index','Dashboard', 'home') }}
+        {{ nav_link('home_blueprint.help','Help', 'help-circle') }}
 
         {{ nav_header('Administration')}}
 
-        {{ nav_link('admin_blueprint.inputs','Inputs', 'layout') }}
-        {{ nav_link('admin_blueprint.outputs','Outputs', 'grid') }}
+        {{ nav_link('admin_blueprint.inputs','Features', 'layout') }}
+        {{ nav_link('admin_blueprint.outputs','Classes', 'grid') }}
         {{ nav_link('admin_blueprint.data','Data', 'layers') }}
-        {{ nav_link('admin_blueprint.manage','Manage', 'file-plus') }}
+        {{ nav_link('admin_blueprint.manage','Statistics', 'file-plus') }}
 
         {{ nav_header('Training')}}
 
         {{ nav_link('admin_blueprint.trainer','Trainer', 'layers', True) }}
-        {{ nav_link('admin_blueprint.logger','Log', 'layers') }}
+        {{ nav_link('admin_blueprint.logger','Logger', 'layers') }}
         {{ nav_link('admin_blueprint.reporter','Report', 'layers') }}
 
       </ul>

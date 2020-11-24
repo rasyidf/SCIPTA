@@ -2,7 +2,7 @@
 from sqlalchemy import Binary, Column, Integer, String
 from app import db, login_manager
 
-from json import JSONEncoder
+from json import JSONEncoder, JSONDecoder
 
 
 
@@ -20,11 +20,9 @@ class Input(db.Model):
     def __init__(self, **kwargs):
         for property, value in kwargs.items():
             setattr(self, property, value)
-
-
-class InputEncoder(JSONEncoder):
-    def default(self, o: Input):
-        return {"id": o.id, "text": o.text, "desc": o.desc, "data": o.data}
+    
+    def __str__(self):
+        return ','.join([self.id, self.text, self.desc, self.data])
 
 
 
@@ -46,11 +44,6 @@ class Output(db.Model):
 
 
 
-class OutputEncoder(JSONEncoder):
-    def default(self, o: Output):
-        return {"id": o.id, "text": o.text, "desc": o.desc, "data": o.data}
-
-
 
 class Data(db.Model):
     """
@@ -68,7 +61,22 @@ class Data(db.Model):
             setattr(self, property, value)
 
 
+
+
+#region Encoder
+
+class InputEncoder(JSONEncoder):
+    def default(self, o: Input):
+        return {"id": o.id, "text": o.text, "desc": o.desc, "data": o.data}
+
+
+class OutputEncoder(JSONEncoder):
+    def default(self, o: Output):
+        return {"id": o.id, "text": o.text, "desc": o.desc, "data": o.data}
+
+
 class DataEncoder(JSONEncoder):
     def default(self, o: Data):
         return {"id": o.id, "text": o.text, "desc": o.desc, "data": o.data}
 
+ 
