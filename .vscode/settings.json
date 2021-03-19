@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "env\\Scripts\\python.exe",
+    "python.pythonPath": "D:\\DEV\\sdk\\Anaconda3\\python.exe",
     "files.associations": {
         "*.j2.html": "jinja-html"
     },

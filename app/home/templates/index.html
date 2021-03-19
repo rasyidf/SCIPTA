@@ -1,9 +1,9 @@
 {% extends 'layouts/layout-base.html' %}
 
 
-{% block title %} Beranda {% endblock title %}
+{% block title %} {{_('Dashboard')}} {% endblock title %}
 
-{% block contentheader %}Beranda{% endblock %}
+{% block contentheader %}{{_('Dashboard')}}{% endblock %}
 
 {% block stylesheets %}{% endblock stylesheets %}
 
@@ -14,7 +14,7 @@
         <div class="col-12 col-md-6">
             <div class="card" style="min-height: 150px;">
                 <div class="card-header border-0 p-2">
-                    <h3 class="card-title">Model</h3>
+                    <h3 class="card-title">{{_('Model')}}</h3>
                     <div class="card-tools">
                         <a class="btn btn-sm btn-tool" href="javascript:void(0);">
                             <i data-feather="more-vertical"></i>
@@ -135,7 +135,7 @@
                 <div class="card-body" style="position: relative;">
                     <div class="text-center ">
                         <h6>From last month</h6>
-                        <h1 class="text-green">+$2,134</h1>
+                        <h1 class="text-green">2,134</h1>
                     </div>
                 </div>
             </div>

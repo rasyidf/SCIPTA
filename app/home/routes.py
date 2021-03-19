@@ -8,6 +8,7 @@ from app import login_manager
 from jinja2 import TemplateNotFound
 from flask.helpers import send_from_directory
 from os.path import join
+from flask_babel import _, refresh
 
 @blueprint.route('/index')
 @login_required

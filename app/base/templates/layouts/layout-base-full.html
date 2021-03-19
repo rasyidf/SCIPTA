@@ -6,16 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <title>
-    SIPTA - {% block title %} {% endblock %}
+    SIPTA - {% block title %}{% endblock %}
   </title>
 
   <link rel="stylesheet" href="/static/assets/css/adminlte.min.css"> 
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
-  <meta name="theme-color" content="#4b545c">
-  <script src="https://unpkg.com/feather-icons"></script>
-  {% block stylesheets %}{% endblock stylesheets %}
 
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  {% block stylesheets %}{% endblock stylesheets %} 
+  <meta name="theme-color" content="{% block themecolor %}#4b545c{% endblock themecolor %}">
+  <style>
+    body {overflow-y:scroll;}
+  </style>
 </head>
 
 <body class="hold-transition auth-page"  > 
